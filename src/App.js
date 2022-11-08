@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Header from "./components/Header";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import Offers from "./pages/Offers";
@@ -11,6 +12,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
+      <Header />
         <Routes>
           <Route path = "/" element = { <Home /> } />
           <Route path = "/sign-in" element = { <SignIn /> } />
