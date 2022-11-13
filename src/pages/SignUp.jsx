@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { db } from "../firebase";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
+
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -21,6 +27,41 @@ export default function SignUp() {
     }));
   }
 
+  async function onSubmit(e) {
+    e.preventDefault();
+    
+    try {
+      const auth = getAuth();
+      const createUserCredential = await createUserWithEmailAndPassword( auth, email, password );
+
+      updateProfile(auth.currentUser, {
+        displayName: name,
+      });
+      const user = createUserCredential.user;
+
+      const formDataCopy = {...formData};
+      delete formDataCopy.password;
+      formDataCopy.timestamp = serverTimestamp();
+
+      await setDoc(doc( db, "users", user.uid), formDataCopy);
+      toast.success("Sign Up Successful");
+      navigate("/");
+    } catch (error) {
+
+      if (formData.email === "") {
+        toast.error("Enter Email");
+      }else if(formData.name === ""){
+        toast.error("Enter Name");
+      }else if(formData.password === ""){
+        toast.error("Enter Password");
+      } else {
+        toast.error("Something went wrong with the registration");
+      }
+
+    }
+
+  }
+
   return (
     <section>
       <h1 className="text-center text-3xl mt-6 font-bold">Sign Up</h1>
@@ -33,7 +74,7 @@ export default function SignUp() {
           />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-          <form>
+          <form onSubmit={onSubmit}>
             <input
               type="text"
               className="mb-6 w-full bg-white text-xl border-gray-300 px-4 py-2 rounded transition ease-in-out"
