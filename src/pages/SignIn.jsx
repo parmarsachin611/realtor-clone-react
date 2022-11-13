@@ -1,8 +1,13 @@
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import OAuth from "../components/OAuth";
 export default function SignIn() {
+
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -19,6 +24,23 @@ export default function SignIn() {
     }));
   }
 
+  async function onSubmit(e) {
+
+    try {
+      e.preventDefault();
+      const auth = getAuth();
+
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+
+      if (userCredential.user) {
+        navigate("/");
+      } 
+    } catch (error) {
+      toast.error("Invalid User Credential");
+    }
+
+  }
+
   return (
     <section>
       <h1 className="text-center text-3xl mt-6 font-bold">Sign In</h1>
@@ -31,7 +53,7 @@ export default function SignIn() {
           />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-          <form>
+          <form onSubmit={onSubmit}>
             <input
               type="email"
               className="mb-6 w-full bg-white text-xl border-gray-300 px-4 py-2 rounded transition ease-in-out"
