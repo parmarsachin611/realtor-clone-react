@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function SignUp() {
+
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -47,10 +48,10 @@ export default function SignUp() {
       formDataCopy.timestamp = serverTimestamp();
 
       await setDoc(doc(db, "users", user.uid), formDataCopy);
-      // toast.success("Sign up was successful");
-      // navigate("/");
+      // toast.success("Registration successful");
+      // navigate("/login");
     } catch (error) {
-      toast.error("Something went wrong with the registration");
+      toast.error(error);
     }
   }
   return (

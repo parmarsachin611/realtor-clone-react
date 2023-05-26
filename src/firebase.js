@@ -13,7 +13,9 @@ const firebaseConfig = {
   storageBucket: "realtor-clone-react-31a60.appspot.com",
   messagingSenderId: "1079827775983",
   appId: "1:1079827775983:web:738245ec149fb51751361a",
-  measurementId: "G-3XJQF3LQ2S"
+  measurementId: "G-3XJQF3LQ2S",
+  experimentalForceLongPolling: true, // this line
+  useFetchStreams: false, // and this line
 };
 
 // Initialize Firebase
