@@ -32,6 +32,7 @@ export default function SignIn() {
         navigate("/");
       }
     } catch (error) {
+      console.log(error);
       toast.error("Bad user credentials");
     }
   }
