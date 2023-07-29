@@ -7,13 +7,13 @@ import { getFirestore } from "firebase/firestore";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAopuChe5LYrBq5By4eXcqEbfvEbAkKDKk",
-  authDomain: "realtor-clone-react-31a60.firebaseapp.com",
-  projectId: "realtor-clone-react-31a60",
-  storageBucket: "realtor-clone-react-31a60.appspot.com",
-  messagingSenderId: "1079827775983",
-  appId: "1:1079827775983:web:738245ec149fb51751361a",
-  measurementId: "G-3XJQF3LQ2S",
+  apiKey: "AIzaSyCWFApBADsHtkiVKcCCgJC4r2-TG4ykg78",
+  authDomain: "realtor-clone-react-fe7d7.firebaseapp.com",
+  projectId: "realtor-clone-react-fe7d7",
+  storageBucket: "realtor-clone-react-fe7d7.appspot.com",
+  messagingSenderId: "782813385514",
+  appId: "1:782813385514:web:5856172c08978143748453",
+  measurementId: "G-TKC1NM3FJ1",
   experimentalForceLongPolling: true, // this line
   useFetchStreams: false, // and this line
 };
@@ -21,3 +21,4 @@ const firebaseConfig = {
 // Initialize Firebase
 initializeApp(firebaseConfig);
 export const db = getFirestore();
+
